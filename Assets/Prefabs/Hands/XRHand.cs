@@ -7,10 +7,13 @@ public class XRHand : MonoBehaviour
 {
     Animator XRHandAnimator;
     LineRenderer pointingLine;
+    [SerializeField] Transform holdObjectTrans;
+    RaycastHit hit;
     private void Start()
     {
         XRHandAnimator = GetComponent<Animator>();
         pointingLine = GetComponent<LineRenderer>();
+        pointingLine.SetPosition(0, transform.localPosition);
         pointingLine.enabled = false;
     }
     public void UpdateLocalPosition(Vector3 location)
@@ -32,29 +35,41 @@ public class XRHand : MonoBehaviour
     public void UpdateTriggerAnimation(float input)
     {
         XRHandAnimator.SetFloat("Trigger", input);
-        if(input < .5f)
+        if(input > .5f)
         {
-            HoldObject();
+            if(holdObjectTrans.childCount < 1)
+            {
+                HoldObject();
+            }
+            else
+            {
+                Debug.Log("Cant hold more than 1 item");
+            }   
         }
         else
         {
-            //release functionality
+            if(holdObjectTrans.childCount == 1)
+            {
+                DropObject();
+            }
         }
     }
 
     public void HoldObject()
     {
-        RaycastHit hit;
-        pointingLine.SetPosition(0, transform.position);
         if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
         {
             pointingLine.enabled = true;
             pointingLine.SetPosition(1, hit.transform.position);
-            hit.transform.position = transform.position;
-            hit.transform.parent = transform;
+            hit.transform.position = holdObjectTrans.position;
+            hit.transform.parent = holdObjectTrans;
         }else
         {
             pointingLine.enabled = false;
         }
+    }
+    public void DropObject()
+    {
+        hit.transform.parent = null;
     }
 }
