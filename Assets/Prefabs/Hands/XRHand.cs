@@ -6,15 +6,33 @@ using UnityEngine;
 public class XRHand : MonoBehaviour
 {
     Animator XRHandAnimator;
-    LineRenderer pointingLine;
-    [SerializeField] Transform holdObjectTrans;
-    RaycastHit hit;
+    [SerializeField] LaserPointer laserPointer;
+    [SerializeField] GameObject GrabbingPoint;
+    [SerializeField] Transform ThrowVelocityRefPoint;
+    IDragable objectInHand;
+
+    Vector3 Velocity;
+    Vector3 OldPos;
+    Vector3 PositionOneSecondBefore;
+
+    IEnumerator CalculateAverageSpeed()
+    {
+        while(true)
+        {
+            Velocity = (ThrowVelocityRefPoint.position - OldPos) / 0.1f;
+            OldPos = ThrowVelocityRefPoint.position;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     private void Start()
     {
-        XRHandAnimator = GetComponent<Animator>();
-        pointingLine = GetComponent<LineRenderer>();
-        pointingLine.SetPosition(0, transform.localPosition);
-        pointingLine.enabled = false;
+        XRHandAnimator = GetComponentInChildren<Animator>();
+        if(laserPointer == null)
+        {
+            laserPointer = GetComponentInChildren<LaserPointer>();
+        }
+        StartCoroutine(CalculateAverageSpeed());
     }
     public void UpdateLocalPosition(Vector3 location)
     {
@@ -35,41 +53,37 @@ public class XRHand : MonoBehaviour
     public void UpdateTriggerAnimation(float input)
     {
         XRHandAnimator.SetFloat("Trigger", input);
-        if(input > .5f)
+    }
+
+    internal void TriggerReleased()
+    {
+        if(objectInHand != null)
         {
-            if(holdObjectTrans.childCount < 1)
+            objectInHand.Released(Velocity);
+        } 
+    }
+
+    internal void TriggerPressed()
+    {
+        Debug.Log("trigger is pressed");
+        if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
+        {
+            IDragable objectAsDragable = objectInFocus.GetComponent<IDragable>();
+            if(objectAsDragable == null)
             {
-                HoldObject();
+                objectAsDragable = objectInFocus.GetComponentInParent<IDragable>();
             }
-            else
+
+            if(objectAsDragable != null)
             {
-                Debug.Log("Cant hold more than 1 item");
-            }   
-        }
-        else
-        {
-            if(holdObjectTrans.childCount == 1)
-            {
-                DropObject();
+                objectAsDragable.Grabbed(GrabbingPoint, ContactPoint);
+                objectInHand = objectAsDragable;
             }
         }
     }
 
-    public void HoldObject()
+    private void Update()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
-        {
-            pointingLine.enabled = true;
-            pointingLine.SetPosition(1, hit.transform.position);
-            hit.transform.position = holdObjectTrans.position;
-            hit.transform.parent = holdObjectTrans;
-        }else
-        {
-            pointingLine.enabled = false;
-        }
-    }
-    public void DropObject()
-    {
-        hit.transform.parent = null;
+        
     }
 }
