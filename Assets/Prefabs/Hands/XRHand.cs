@@ -21,6 +21,7 @@ public class XRHand : MonoBehaviour
     Vector3 Velocity;
     Vector3 OldPos;
     Vector3 PositionOneSecondBefore;
+    private float _gripInput;
 
     IEnumerator CalculateAverageSpeed()
     {
@@ -53,17 +54,28 @@ public class XRHand : MonoBehaviour
 
     public void UpdateGripAnimation(float input)
     {
-        float gripInput = input;
-        XRHandAnimator.SetFloat("Grip", gripInput);
+        _gripInput = input;
+        XRHandAnimator.SetFloat("Grip", _gripInput);
         if(whichSide.Equals(WhichHand.LeftHand))
         {
-            if(gripInput > 0.9f)
+            if(_gripInput > 0.9f)
             {
                 //FindObjectOfType<Earth>().RotateUsingVelocity(Velocity.x);
                 //return;
             }
         }
         
+    }
+
+    internal void StickUpdated(Vector2 stickInput)
+    {
+        if(whichSide.Equals(WhichHand.LeftHand) && _gripInput < 0.1f)
+        {
+            if(stickInput.x >0.5)
+            {
+                //FindObjectOfType<Earth>().
+            }
+        }
     }
 
     public void UpdateTriggerAnimation(float input)

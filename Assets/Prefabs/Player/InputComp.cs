@@ -35,5 +35,7 @@ public class InputComp : MonoBehaviour
         playerInput.XRRightController.TriggerAxis.performed += ctx => rightHand.UpdateTriggerAnimation(ctx.ReadValue<float>());
         playerInput.XRRightController.TriggerPress.performed += ctx => rightHand.TriggerPressed();
         playerInput.XRRightController.TriggerPress.canceled += ctx => rightHand.TriggerReleased();
+        //playerInput.XRLeftController.GripAxis.performed += ctx => leftHand.UpdateGripAnimation(ctx.ReadValue<float>());
+        //playerInput.XRLeftController.Stick.performed += ctx => leftHand.StickUpdated(ctx.ReadValue<Vector2>());
     }
 }

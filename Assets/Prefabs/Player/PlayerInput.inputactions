@@ -108,6 +108,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "XRLeftController",
+            "id": "cf24956c-8b7b-4e7e-a060-0f2a19141a35",
+            "actions": [
+                {
+                    "name": "Stick",
+                    "type": "Value",
+                    "id": "a011fb16-a574-4e62-a83e-0ef009e588ce",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "GripAxis",
+                    "type": "Value",
+                    "id": "cb43aa95-c09c-4b9b-bc3c-6f139ae485da",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "49512a8f-10e6-4ac5-a17e-31eb62f65994",
+                    "path": "<XRController>{LeftHand}/joystick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d1a6eb6-8d17-4337-b150-2e730e4fa822",
+                    "path": "<XRController>{LeftHand}/grip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GripAxis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
