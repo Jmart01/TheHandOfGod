@@ -3,11 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WhichHand
-{
-    LeftHand,
-    RightHand
-}
 
 public class XRHand : MonoBehaviour
 {
@@ -15,7 +10,6 @@ public class XRHand : MonoBehaviour
     [SerializeField] LaserPointer laserPointer;
     [SerializeField] GameObject GrabbingPoint;
     [SerializeField] Transform ThrowVelocityRefPoint;
-    [SerializeField] WhichHand whichSide;
     IDragable objectInHand;
 
     Vector3 Velocity;
@@ -54,28 +48,26 @@ public class XRHand : MonoBehaviour
 
     public void UpdateGripAnimation(float input)
     {
-        _gripInput = input;
         XRHandAnimator.SetFloat("Grip", _gripInput);
-        if(whichSide.Equals(WhichHand.LeftHand))
+        if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
         {
-            if(_gripInput > 0.9f)
+            IDragable objectAsDragable = objectInFocus.GetComponent<IDragable>();
+            if (objectAsDragable == null)
             {
-                //FindObjectOfType<Earth>().RotateUsingVelocity(Velocity.x);
-                //return;
+                objectAsDragable = objectInFocus.GetComponentInParent<IDragable>();
+            }
+
+            if (objectAsDragable != null)
+            {
+                objectAsDragable.Grabbed(GrabbingPoint, ContactPoint);
+                objectInHand = objectAsDragable;
             }
         }
-        
     }
 
     internal void StickUpdated(Vector2 stickInput)
     {
-        if(whichSide.Equals(WhichHand.LeftHand) && _gripInput < 0.1f)
-        {
-            if(stickInput.x >0.5)
-            {
-                //FindObjectOfType<Earth>().
-            }
-        }
+       
     }
 
     public void UpdateTriggerAnimation(float input)
@@ -85,19 +77,15 @@ public class XRHand : MonoBehaviour
 
     internal void TriggerReleased()
     {
-        if(whichSide.Equals(WhichHand.RightHand))
+        if(objectInHand != null)
         {
-            if(objectInHand != null)
-            {
-                objectInHand.Released(Velocity);
-            }
+            objectInHand.Released(Velocity);
         }
+
     }
 
     internal void TriggerPressed()
     {
-        if(whichSide.Equals(WhichHand.RightHand))
-        {
             Debug.Log("trigger is pressed");
             if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
             {
@@ -113,7 +101,6 @@ public class XRHand : MonoBehaviour
                     objectInHand = objectAsDragable;
                 }
             }
-        }
     }
 
     private void Update()

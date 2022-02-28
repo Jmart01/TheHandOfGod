@@ -130,6 +130,42 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "TriggerAxis",
+                    "type": "Value",
+                    "id": "9ed8b37f-863f-4dce-8d3e-132e03490706",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "b91db260-b502-461b-a768-7c5dec9bdcb2",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Rotation",
+                    "type": "Value",
+                    "id": "6a6555d8-8bfe-4618-8c17-ad16b480bf66",
+                    "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TriggerPressed",
+                    "type": "Button",
+                    "id": "5dee92ee-4404-48b3-b24c-dd8ea1f94eef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -152,6 +188,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "GripAxis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27f0137d-68e9-4f8b-a26a-6bf49c596157",
+                    "path": "<XRController>{LeftHand}/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TriggerAxis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3184fb8-4001-48dc-ad07-34f3320c3b91",
+                    "path": "<XRController>{LeftHand}/pointerPosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3c51851-3020-4691-bcfa-4e54a4084b6f",
+                    "path": "<XRController>{LeftHand}/pointerRotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40e00fde-028a-4683-8d5a-78beffbd695f",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TriggerPressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -152,6 +152,42 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TriggerAxis"",
+                    ""type"": ""Value"",
+                    ""id"": ""9ed8b37f-863f-4dce-8d3e-132e03490706"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Position"",
+                    ""type"": ""Value"",
+                    ""id"": ""b91db260-b502-461b-a768-7c5dec9bdcb2"",
+                    ""expectedControlType"": ""Vector3"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotation"",
+                    ""type"": ""Value"",
+                    ""id"": ""6a6555d8-8bfe-4618-8c17-ad16b480bf66"",
+                    ""expectedControlType"": ""Quaternion"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TriggerPressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""5dee92ee-4404-48b3-b24c-dd8ea1f94eef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -176,6 +212,50 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""GripAxis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27f0137d-68e9-4f8b-a26a-6bf49c596157"",
+                    ""path"": ""<XRController>{LeftHand}/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TriggerAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3184fb8-4001-48dc-ad07-34f3320c3b91"",
+                    ""path"": ""<XRController>{LeftHand}/pointerPosition"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Position"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3c51851-3020-4691-bcfa-4e54a4084b6f"",
+                    ""path"": ""<XRController>{LeftHand}/pointerRotation"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40e00fde-028a-4683-8d5a-78beffbd695f"",
+                    ""path"": ""<XRController>{LeftHand}/triggerPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TriggerPressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -193,6 +273,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_XRLeftController = asset.FindActionMap("XRLeftController", throwIfNotFound: true);
         m_XRLeftController_Stick = m_XRLeftController.FindAction("Stick", throwIfNotFound: true);
         m_XRLeftController_GripAxis = m_XRLeftController.FindAction("GripAxis", throwIfNotFound: true);
+        m_XRLeftController_TriggerAxis = m_XRLeftController.FindAction("TriggerAxis", throwIfNotFound: true);
+        m_XRLeftController_Position = m_XRLeftController.FindAction("Position", throwIfNotFound: true);
+        m_XRLeftController_Rotation = m_XRLeftController.FindAction("Rotation", throwIfNotFound: true);
+        m_XRLeftController_TriggerPressed = m_XRLeftController.FindAction("TriggerPressed", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -319,12 +403,20 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IXRLeftControllerActions m_XRLeftControllerActionsCallbackInterface;
     private readonly InputAction m_XRLeftController_Stick;
     private readonly InputAction m_XRLeftController_GripAxis;
+    private readonly InputAction m_XRLeftController_TriggerAxis;
+    private readonly InputAction m_XRLeftController_Position;
+    private readonly InputAction m_XRLeftController_Rotation;
+    private readonly InputAction m_XRLeftController_TriggerPressed;
     public struct XRLeftControllerActions
     {
         private @PlayerInput m_Wrapper;
         public XRLeftControllerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Stick => m_Wrapper.m_XRLeftController_Stick;
         public InputAction @GripAxis => m_Wrapper.m_XRLeftController_GripAxis;
+        public InputAction @TriggerAxis => m_Wrapper.m_XRLeftController_TriggerAxis;
+        public InputAction @Position => m_Wrapper.m_XRLeftController_Position;
+        public InputAction @Rotation => m_Wrapper.m_XRLeftController_Rotation;
+        public InputAction @TriggerPressed => m_Wrapper.m_XRLeftController_TriggerPressed;
         public InputActionMap Get() { return m_Wrapper.m_XRLeftController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -340,6 +432,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @GripAxis.started -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnGripAxis;
                 @GripAxis.performed -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnGripAxis;
                 @GripAxis.canceled -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnGripAxis;
+                @TriggerAxis.started -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnTriggerAxis;
+                @TriggerAxis.performed -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnTriggerAxis;
+                @TriggerAxis.canceled -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnTriggerAxis;
+                @Position.started -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnPosition;
+                @Position.performed -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnPosition;
+                @Position.canceled -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnPosition;
+                @Rotation.started -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnRotation;
+                @Rotation.performed -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnRotation;
+                @Rotation.canceled -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnRotation;
+                @TriggerPressed.started -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnTriggerPressed;
+                @TriggerPressed.performed -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnTriggerPressed;
+                @TriggerPressed.canceled -= m_Wrapper.m_XRLeftControllerActionsCallbackInterface.OnTriggerPressed;
             }
             m_Wrapper.m_XRLeftControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -350,6 +454,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @GripAxis.started += instance.OnGripAxis;
                 @GripAxis.performed += instance.OnGripAxis;
                 @GripAxis.canceled += instance.OnGripAxis;
+                @TriggerAxis.started += instance.OnTriggerAxis;
+                @TriggerAxis.performed += instance.OnTriggerAxis;
+                @TriggerAxis.canceled += instance.OnTriggerAxis;
+                @Position.started += instance.OnPosition;
+                @Position.performed += instance.OnPosition;
+                @Position.canceled += instance.OnPosition;
+                @Rotation.started += instance.OnRotation;
+                @Rotation.performed += instance.OnRotation;
+                @Rotation.canceled += instance.OnRotation;
+                @TriggerPressed.started += instance.OnTriggerPressed;
+                @TriggerPressed.performed += instance.OnTriggerPressed;
+                @TriggerPressed.canceled += instance.OnTriggerPressed;
             }
         }
     }
@@ -366,5 +482,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnStick(InputAction.CallbackContext context);
         void OnGripAxis(InputAction.CallbackContext context);
+        void OnTriggerAxis(InputAction.CallbackContext context);
+        void OnPosition(InputAction.CallbackContext context);
+        void OnRotation(InputAction.CallbackContext context);
+        void OnTriggerPressed(InputAction.CallbackContext context);
     }
 }
