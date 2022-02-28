@@ -3,12 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WhichHand
+{
+    LeftHand,
+    RightHand
+}
+
 public class XRHand : MonoBehaviour
 {
     Animator XRHandAnimator;
     [SerializeField] LaserPointer laserPointer;
     [SerializeField] GameObject GrabbingPoint;
     [SerializeField] Transform ThrowVelocityRefPoint;
+    [SerializeField] WhichHand whichSide;
     IDragable objectInHand;
 
     Vector3 Velocity;
@@ -46,7 +53,16 @@ public class XRHand : MonoBehaviour
 
     public void UpdateGripAnimation(float input)
     {
-        XRHandAnimator.SetFloat("Grip", input);
+        float gripInput = input;
+        XRHandAnimator.SetFloat("Grip", gripInput);
+        if(whichSide.Equals(WhichHand.LeftHand))
+        {
+            if(gripInput > 0.9f)
+            {
+                //FindObjectOfType<Earth>().RotateUsingVelocity(Velocity.x);
+                //return;
+            }
+        }
         
     }
 
@@ -57,27 +73,33 @@ public class XRHand : MonoBehaviour
 
     internal void TriggerReleased()
     {
-        if(objectInHand != null)
+        if(whichSide.Equals(WhichHand.RightHand))
         {
-            objectInHand.Released(Velocity);
-        } 
+            if(objectInHand != null)
+            {
+                objectInHand.Released(Velocity);
+            }
+        }
     }
 
     internal void TriggerPressed()
     {
-        Debug.Log("trigger is pressed");
-        if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
+        if(whichSide.Equals(WhichHand.RightHand))
         {
-            IDragable objectAsDragable = objectInFocus.GetComponent<IDragable>();
-            if(objectAsDragable == null)
+            Debug.Log("trigger is pressed");
+            if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
             {
-                objectAsDragable = objectInFocus.GetComponentInParent<IDragable>();
-            }
+                IDragable objectAsDragable = objectInFocus.GetComponent<IDragable>();
+                if(objectAsDragable == null)
+                {
+                    objectAsDragable = objectInFocus.GetComponentInParent<IDragable>();
+                }
 
-            if(objectAsDragable != null)
-            {
-                objectAsDragable.Grabbed(GrabbingPoint, ContactPoint);
-                objectInHand = objectAsDragable;
+                if(objectAsDragable != null)
+                {
+                    objectAsDragable.Grabbed(GrabbingPoint, ContactPoint);
+                    objectInHand = objectAsDragable;
+                }
             }
         }
     }
