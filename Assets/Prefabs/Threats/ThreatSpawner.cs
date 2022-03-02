@@ -24,7 +24,7 @@ public class ThreatSpawner : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(Mathf.Lerp(MinSpawnInterval, MaxSpawnInterval, Random.Range(0, 1)));
+            yield return new WaitForSeconds(Mathf.Lerp(MinSpawnInterval, MaxSpawnInterval, Random.Range(0f, 1f)));
             SpawnRandomThreat();
         }
     }

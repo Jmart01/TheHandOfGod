@@ -2,8 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Car : Threat
+public class Car : Threat, IDragable
 {
+    [SerializeField] Transform[] laneTrans;
+    Vector3 pointGrab;
+
+    public void Grabbed(GameObject grabber, Vector3 grabPoint)
+    {
+        //Vector3 placeToMoveCar
+
+    }
+
+    private Vector3 ClosestLane(Vector3 point)
+    {
+        Transform closestLane = null;
+        float closestDist = float.MaxValue;
+
+        foreach(Transform lane in laneTrans)
+        {
+            float distance = Vector3.Distance(lane.localPosition, point);
+            if(distance < closestDist)
+            {
+                closestLane = lane;
+                closestDist = distance;
+            }
+        }
+        return closestLane.localPosition;
+    }
+
     public override void Init()
     {
         OrbitMovementComp orbitMovementComp = GetComponent<OrbitMovementComp>();
@@ -15,15 +41,9 @@ public class Car : Threat
         orbitMovementComp.SetRotation(SpawnRot);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void Released(Vector3 ThrowVelocity)
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
