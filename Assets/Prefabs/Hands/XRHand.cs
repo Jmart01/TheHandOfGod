@@ -81,7 +81,6 @@ public class XRHand : MonoBehaviour
         {
             objectInHand.Released(Velocity);
         }
-
     }
 
     internal void TriggerPressed()
