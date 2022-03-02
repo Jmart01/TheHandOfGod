@@ -5,12 +5,13 @@ using UnityEngine;
 public class Car : Threat, IDragable
 {
     [SerializeField] Transform[] laneTrans;
-    Vector3 pointGrab;
-
+    [SerializeField] float LaneSpeed = 5f;
+    [SerializeField] Transform CarTrans;
+    Vector3 desiredLane;
     public void Grabbed(GameObject grabber, Vector3 grabPoint)
     {
-        //Vector3 placeToMoveCar
-
+        Vector3 placeToMoveCar = ClosestLane(grabPoint);
+        desiredLane = placeToMoveCar;
     }
 
     private Vector3 ClosestLane(Vector3 point)
@@ -36,9 +37,10 @@ public class Car : Threat, IDragable
         Transform walkManTrans = GameplayStatic.GetWalkmanTransform();
         Vector3 SpawnRotUp = -walkManTrans.up;
         Vector3 SpawnRotForward = walkManTrans.forward;
-
         Quaternion SpawnRot = Quaternion.LookRotation(SpawnRotForward, SpawnRotUp);
         orbitMovementComp.SetRotation(SpawnRot);
+        desiredLane = CarTrans.localPosition;
+        StartCoroutine(MoveCarToDesiredLane());
     }
 
     public void Released(Vector3 ThrowVelocity)
@@ -46,4 +48,12 @@ public class Car : Threat, IDragable
         
     }
 
+    IEnumerator MoveCarToDesiredLane()
+    {
+        while (true)
+        {
+            CarTrans.localPosition = new Vector3(Mathf.Lerp(CarTrans.localPosition.x, desiredLane.x, LaneSpeed * Time.deltaTime), CarTrans.localPosition.y, CarTrans.localPosition.z);
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }
