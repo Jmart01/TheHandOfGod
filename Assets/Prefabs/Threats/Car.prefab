@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5675480719744524145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4258830801254450847}
+  m_Layer: 0
+  m_Name: explosionPlace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4258830801254450847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5675480719744524145}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 19.23, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451350071945323391}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &82982443127985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,9 +86,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car
       objectReference: {fileID: 0}
+    - target: {fileID: 2784620582822180088, guid: 7080fa90e8390eb469908aaa633a00e8, type: 3}
+      propertyPath: DmgToWalkman
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2784620582822180088, guid: 7080fa90e8390eb469908aaa633a00e8, type: 3}
+      propertyPath: explosionPlace
+      value: 
+      objectReference: {fileID: 4258830801254450847}
+    - target: {fileID: 2784620582822180088, guid: 7080fa90e8390eb469908aaa633a00e8, type: 3}
+      propertyPath: explosionEffect
+      value: 
+      objectReference: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
     - target: {fileID: 6440005669860302596, guid: 7080fa90e8390eb469908aaa633a00e8, type: 3}
       propertyPath: m_Size.x
       value: 1.74
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7080fa90e8390eb469908aaa633a00e8, type: 3}
+--- !u!4 &1451350071945323391 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1451408450297952206, guid: 7080fa90e8390eb469908aaa633a00e8, type: 3}
+  m_PrefabInstance: {fileID: 82982443127985}
+  m_PrefabAsset: {fileID: 0}

@@ -7,12 +7,19 @@ public class Car : Threat, IDragable
     [SerializeField] Transform[] laneTrans;
     [SerializeField] Transform CarPivot;
     [SerializeField] float LaneSpeed = 5f;
-    [SerializeField]
-    LayerMask LaneDetectionLayerMask;
-    //[SerializeField] Transform CarTrans;
+    [SerializeField] LayerMask LaneDetectionLayerMask;
+    [SerializeField] float DmgToWalkman = -2f;
+    [SerializeField] GameObject explosionEffect;
+    [SerializeField] Transform explosionPlace;
 
     Transform DestinationLane;
     GameObject DragRef;
+
+
+    public float GetDmgToWalkman()
+    {
+        return DmgToWalkman;
+    }
 
     private void Start()
     {
@@ -24,6 +31,25 @@ public class Car : Threat, IDragable
         DragRef = new GameObject($"{gameObject.name} drag ref");
         PickRandomLane();
     }
+
+    internal void ExplodeOnWalkman()
+    {
+        GameObject cloneExplosion = Instantiate(explosionEffect, explosionPlace.position,explosionPlace.rotation);
+        gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+        StartCoroutine(DestroyCar(cloneExplosion));
+    }
+
+    IEnumerator DestroyCar(GameObject clone)
+    {
+        while(true)
+        {
+            Debug.Log("Should delete soon");
+            yield return new WaitForSeconds(2f);
+            Destroy(clone);
+            Destroy(gameObject);
+        }
+    }
+
     public void Grabbed(GameObject grabber, Vector3 grabPoint)
     {
         DragRef.transform.position = grabPoint;
