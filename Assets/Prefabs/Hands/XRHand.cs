@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class XRHand : MonoBehaviour
+public class XRHand : MonoBehaviour, IXRControllerInterface
 {
     Animator XRHandAnimator;
     [SerializeField] LaserPointer laserPointer;
@@ -85,7 +85,7 @@ public class XRHand : MonoBehaviour
 
     internal void TriggerPressed()
     {
-            Debug.Log("trigger is pressed");
+            //Debug.Log("trigger is pressed");
             if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
             {
                 IDragable objectAsDragable = objectInFocus.GetComponent<IDragable>();
@@ -105,5 +105,14 @@ public class XRHand : MonoBehaviour
     private void Update()
     {
         
+    }
+
+    public Vector2 GetPointerScreenPosition()
+    {
+        if(laserPointer != null)
+        {
+            return laserPointer.GetPointerScreenPosition();
+        }
+        return Vector2.zero;
     }
 }

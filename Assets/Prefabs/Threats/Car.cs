@@ -125,11 +125,11 @@ public class Car : Threat, IDragable
         float LerpAlpha = Mathf.Clamp(Time.deltaTime * LaneSpeed,0f,1f);
         CarPivot.rotation = Quaternion.Slerp(CarPivot.rotation, DestinationLane.parent.rotation, LerpAlpha);
 
-        if(Quaternion.Angle(transform.rotation, startRot) <= 359f)
+        /*if(Quaternion.Angle(transform.rotation, startRot) <= 359f)
         {
             Debug.Log("Destroying car");
             Destroy(gameObject);
-        }
+        }*/
     }
 
    

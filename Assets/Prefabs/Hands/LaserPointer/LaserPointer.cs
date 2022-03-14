@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,5 +30,10 @@ public class LaserPointer : MonoBehaviour
         {
             lineRenderer = GetComponent<LineRenderer>();
         }
+    }
+
+    internal Vector2 GetPointerScreenPosition()
+    {
+        return Camera.main.WorldToScreenPoint(transform.position + transform.forward * (lineRenderer.GetPosition(1) - lineRenderer.GetPosition(0)).magnitude);
     }
 }

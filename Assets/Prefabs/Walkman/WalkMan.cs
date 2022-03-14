@@ -25,7 +25,7 @@ public class WalkMan : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         Car otherAsCar = other.GetComponentInParent<Car>();
         if(otherAsCar)
@@ -35,5 +35,5 @@ public class WalkMan : MonoBehaviour
             walkmanHealthComp.ChangeHealth(otherAsCar.GetDmgToWalkman());
             otherAsCar.ExplodeOnWalkman();
         }
-    }
+    }*/
 }

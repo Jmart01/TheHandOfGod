@@ -23,7 +23,11 @@ public class InGameUI : MonoBehaviour
 
     private void SetWalkmanHealth(float percent)
     {
-        ProgressBar.material.SetFloat("_Progress", percent);
+        if(ProgressBar != null)
+        {
+            ProgressBar.material.SetFloat("_Progress", percent);
+        }
+        Debug.Log("Put in progress bar");
     }
 
     // Update is called once per frame
