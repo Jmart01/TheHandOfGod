@@ -13,6 +13,8 @@ public class HealthComp : MonoBehaviour
     public OnHealthChanged onHealthChanged;
     public OnNoHealthLeft noHealthLeft;
 
+    Coroutine HealthRegenCoroutine;
+
     public void ChangeHealth(float changeAmount, GameObject Causer = null)
     {
         if(changeAmount < 0 && HitPoints == 0)
@@ -26,11 +28,28 @@ public class HealthComp : MonoBehaviour
         if(HitPoints == 0)
         {
             noHealthLeft.Invoke(Causer);
+            HealthRegenCoroutine = null;
         }
         if(onHealthChanged != null)
         {
             onHealthChanged.Invoke(HitPoints, oldValue, MaxHitPoints, Causer);
+            if(HealthRegenCoroutine != null)
+            {
+                StopCoroutine(HealthRegenCoroutine);
+            }
+            HealthRegenCoroutine = StartCoroutine(RegenHealth());
         }
+    }
+
+    IEnumerator RegenHealth()
+    {
+        yield return new WaitForSeconds(5f);
+        while(HitPoints < MaxHitPoints)
+        {
+            yield return new WaitForSeconds(.1f);
+            ChangeHealth(2f);
+        }
+        StopCoroutine(HealthRegenCoroutine);
     }
 
     public void BroadCastCurrentHealth()

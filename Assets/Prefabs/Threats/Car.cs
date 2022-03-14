@@ -14,11 +14,23 @@ public class Car : Threat, IDragable
 
     Transform DestinationLane;
     GameObject DragRef;
+    Quaternion startRot;
 
 
     public float GetDmgToWalkman()
     {
         return DmgToWalkman;
+    }
+
+    public override void Init()
+    {
+        OrbitMovementComp orbitMovementComp = GetComponent<OrbitMovementComp>();
+        Transform walkManTrans = GameplayStatic.GetWalkmanTransform();
+        Vector3 SpawnRotUp = -walkManTrans.up;
+        Vector3 SpawnRotForward = walkManTrans.forward;
+        Quaternion SpawnRot = Quaternion.LookRotation(SpawnRotForward, SpawnRotUp);
+        orbitMovementComp.SetRotation(SpawnRot);
+        startRot = SpawnRot;
     }
 
     private void Start()
@@ -112,17 +124,15 @@ public class Car : Threat, IDragable
         
         float LerpAlpha = Mathf.Clamp(Time.deltaTime * LaneSpeed,0f,1f);
         CarPivot.rotation = Quaternion.Slerp(CarPivot.rotation, DestinationLane.parent.rotation, LerpAlpha);
+
+        if(Quaternion.Angle(transform.rotation, startRot) <= 359f)
+        {
+            Debug.Log("Destroying car");
+            Destroy(gameObject);
+        }
     }
 
-    public override void Init()
-    {
-        OrbitMovementComp orbitMovementComp = GetComponent<OrbitMovementComp>();
-        Transform walkManTrans = GameplayStatic.GetWalkmanTransform();
-        Vector3 SpawnRotUp = -walkManTrans.up;
-        Vector3 SpawnRotForward = walkManTrans.forward;
-        Quaternion SpawnRot = Quaternion.LookRotation(SpawnRotForward, SpawnRotUp);
-        orbitMovementComp.SetRotation(SpawnRot);
-    }
+   
 
     public void Released(Vector3 ThrowVelocity)
     {
