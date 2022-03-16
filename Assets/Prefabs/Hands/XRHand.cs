@@ -80,6 +80,7 @@ public class XRHand : MonoBehaviour, IXRControllerInterface
         if(objectInHand != null)
         {
             objectInHand.Released(Velocity);
+            objectInHand = null;
         }
     }
 

@@ -23,6 +23,7 @@ public class XRInputModule : PointerInputModule
 
     IXRControllerInterface LeftControllerInterface;
     IXRControllerInterface RightControllerInterface;
+
     public override void Process()
     {
         
@@ -48,6 +49,37 @@ public class XRInputModule : PointerInputModule
         playerInput.XRLeftController.TriggerPressed.performed += LeftTriggerPressed;
         playerInput.XRRightController.TriggerPress.canceled += OnRightTriggerReleased;
         playerInput.XRLeftController.TriggerPressed.canceled += OnLeftTriggerReleased;
+
+        playerInput.XRRightController.position.performed += OnRightTriggerMoved;
+        playerInput.XRLeftController.Position.performed += OnLeftTriggerMoved;
+
+    }
+
+    private void OnLeftTriggerMoved(InputAction.CallbackContext obj)
+    {
+        OnTriggerMoved(LeftControllerInterface, LeftControllerData);
+    }
+
+    void OnTriggerMoved(IXRControllerInterface controller, PointerEventData eventData)
+    {
+        if(controller == null || eventData == null)
+        {
+            return;
+        }
+        eventData.position = controller.GetPointerScreenPosition();
+        List<RaycastResult> raycastResult = new List<RaycastResult>();
+        eventSystem.RaycastAll(eventData, raycastResult);
+        eventData.pointerCurrentRaycast = FindFirstRaycast(raycastResult);
+        ProcessMove(eventData);
+        if (eventData.dragging)
+        {
+            ExecuteEvents.Execute(eventData.pointerDrag, eventData, ExecuteEvents.dragHandler);
+        }
+    }
+
+    private void OnRightTriggerMoved(InputAction.CallbackContext obj)
+    {
+        OnTriggerMoved(RightControllerInterface, RightControllerData);
     }
 
     private void OnLeftTriggerReleased(InputAction.CallbackContext obj)
@@ -83,6 +115,18 @@ public class XRInputModule : PointerInputModule
         eventData.pointerCurrentRaycast = FindFirstRaycast(raycastResult);
 
         ExecuteEvents.Execute(eventData.pointerPress, eventData, ExecuteEvents.pointerUpHandler);
+        GameObject currentPointerDown = ExecuteEvents.GetEventHandler<IPointerDownHandler>(eventData.pointerCurrentRaycast.gameObject);
+        if (eventData.pointerPress == currentPointerDown)
+        {
+            ExecuteEvents.Execute(eventData.pointerPress, eventData, ExecuteEvents.pointerClickHandler);
+        }
+        eventData.pointerPress = null;
+        if(eventData.dragging)
+        {
+            ExecuteEvents.Execute(eventData.pointerDrag, eventData, ExecuteEvents.endDragHandler);
+            eventData.pointerDrag = null;
+            eventData.dragging = false;
+        }
     }
 
     private void OnTriggerPressed(IXRControllerInterface Controller, PointerEventData eventData)
@@ -105,6 +149,15 @@ public class XRInputModule : PointerInputModule
             RightControllerData.pointerPressRaycast = RightControllerData.pointerCurrentRaycast;
             RightControllerData.eligibleForClick = true;
             eventData.pointerPress = pointerDownObject;
+        }
+
+        GameObject pointerDragObj = ExecuteEvents.GetEventHandler<IDragHandler>(eventData.pointerCurrentRaycast.gameObject);
+        if(pointerDragObj != null)
+        {
+            ExecuteEvents.Execute(pointerDragObj, eventData, ExecuteEvents.initializePotentialDrag);
+            eventData.pointerPressRaycast = eventData.pointerCurrentRaycast;
+            eventData.dragging = true;
+            eventData.pointerDrag = pointerDragObj;
         }
     }
 

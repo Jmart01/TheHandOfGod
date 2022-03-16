@@ -142,6 +142,14 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 1.74
       objectReference: {fileID: 0}
+    - target: {fileID: 6440005669860302596, guid: 7080fa90e8390eb469908aaa633a00e8, type: 3}
+      propertyPath: m_Size.y
+      value: 3.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440005669860302596, guid: 7080fa90e8390eb469908aaa633a00e8, type: 3}
+      propertyPath: m_Center.y
+      value: 1.95
+      objectReference: {fileID: 0}
     - target: {fileID: 6708272938976937762, guid: 7080fa90e8390eb469908aaa633a00e8, type: 3}
       propertyPath: m_Layer
       value: 8
