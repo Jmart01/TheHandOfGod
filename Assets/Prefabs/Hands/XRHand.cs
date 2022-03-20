@@ -77,7 +77,7 @@ public class XRHand : MonoBehaviour, IXRControllerInterface
 
     internal void TriggerReleased()
     {
-        if(objectInHand != null)
+        if(objectInHand as UnityEngine.Object)
         {
             objectInHand.Released(Velocity);
             objectInHand = null;

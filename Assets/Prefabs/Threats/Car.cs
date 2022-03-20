@@ -22,7 +22,7 @@ public class Car : Threat, IDragable
         return DmgToWalkman;
     }
 
-    public override void Init()
+    public override void Init(ThreatSpawner spawners)
     {
         OrbitMovementComp orbitMovementComp = GetComponent<OrbitMovementComp>();
         Transform walkManTrans = GameplayStatic.GetWalkmanTransform();

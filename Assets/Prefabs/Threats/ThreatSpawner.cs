@@ -7,6 +7,11 @@ public class ThreatSpawner : MonoBehaviour
     [SerializeField] Threat[] Threats;
     [SerializeField] float MinSpawnInterval = 1f;
     [SerializeField] float MaxSpawnInterval = 5f;
+    [SerializeField] BoxCollider MeteoriteSpawner;
+    public BoxCollider GetMeteoriteSpawnBoxCollider()
+    {
+        return MeteoriteSpawner;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +42,6 @@ public class ThreatSpawner : MonoBehaviour
         }
         int RandomIndex = Random.Range(0, Threats.Length);
         Threat newThreat = Instantiate(Threats[RandomIndex]);
-        newThreat.Init();
+        newThreat.Init(this);
     }
 }

@@ -16,7 +16,10 @@ public class HealthComp : MonoBehaviour
     public OnNoHealthLeft noHealthLeft;
 
     Coroutine HealthRegenCoroutine;
-
+    public float GetHitpoints()
+    {
+        return HitPoints;
+    }
     public void ChangeHealth(float changeAmount, GameObject Causer = null)
     {
         if(changeAmount < 0 && HitPoints == 0)
