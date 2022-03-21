@@ -60,4 +60,9 @@ public class Grabable : MonoBehaviour, IDragable
         transform.position = holder.position;
         transform.parent = holder;
     }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
 }

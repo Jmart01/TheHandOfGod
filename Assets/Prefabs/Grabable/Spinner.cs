@@ -9,6 +9,12 @@ public class Spinner : MonoBehaviour,IDragable
     [SerializeField]Transform SpinOffset;
     [SerializeField] [Range(0, 1)] float Damping = 0.5f;
     [SerializeField] float SpinSpeed = 20f;
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+
     public void Grabbed(GameObject grabber, Vector3 grabPoint)
     {
         Debug.Log(grabber.name);

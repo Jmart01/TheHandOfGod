@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -75,32 +73,68 @@ public class XRHand : MonoBehaviour, IXRControllerInterface
         XRHandAnimator.SetFloat("Trigger", input);
     }
 
+    InventorySlot GetCurrentOverSlot()
+    {
+        if(laserPointer == null)
+        {
+            return null;
+        }
+        GameObject currentOverUI = laserPointer.GetCurrentPointingUI();
+        if(currentOverUI != null)
+        {
+            return currentOverUI.GetComponent<InventorySlot>();
+        }
+        return null;
+    }
+
     internal void TriggerReleased()
     {
+        //drop down to inventory slot if hovering over slot and slot is empty and if the hand is holding an item
+        InventoryComponent item = null;
+        if (objectInHand as UnityEngine.Object)
+        {
+            item = objectInHand.GetGameObject().GetComponent<InventoryComponent>();
+        }
+        InventorySlot slot = GetCurrentOverSlot();
+        if(slot != null && slot.IsSlotEmpty() && item != null)
+        {
+            slot.StoreItem(item);
+            objectInHand = null;
+        }
         if(objectInHand as UnityEngine.Object)
         {
             objectInHand.Released(Velocity);
-            objectInHand = null;
         }
     }
 
     internal void TriggerPressed()
     {
-            //Debug.Log("trigger is pressed");
-            if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
+        //Debug.Log("trigger is pressed");
+        if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
+        {
+            IDragable objectAsDragable = objectInFocus.GetComponent<IDragable>();
+            if(objectAsDragable == null)
             {
-                IDragable objectAsDragable = objectInFocus.GetComponent<IDragable>();
-                if(objectAsDragable == null)
-                {
-                    objectAsDragable = objectInFocus.GetComponentInParent<IDragable>();
-                }
-
-                if(objectAsDragable != null)
-                {
-                    objectAsDragable.Grabbed(GrabbingPoint, ContactPoint);
-                    objectInHand = objectAsDragable;
-                }
+                objectAsDragable = objectInFocus.GetComponentInParent<IDragable>();
             }
+
+            if(objectAsDragable != null)
+            {
+                objectAsDragable.Grabbed(GrabbingPoint, ContactPoint);
+                objectInHand = objectAsDragable;
+            }
+        }
+        InventorySlot slot = GetCurrentOverSlot();
+        if(slot != null && !slot.IsSlotEmpty())
+        {
+            InventoryComponent item = slot.TakeOutItem();
+            IDragable objectAsDragable = item.GetComponent<IDragable>();
+            if(objectAsDragable as UnityEngine.Object)
+            {
+                objectInHand = objectAsDragable;
+            }
+
+        }
     }
 
     private void Update()

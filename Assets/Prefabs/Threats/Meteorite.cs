@@ -80,4 +80,9 @@ public class Meteorite : Threat, IDragable
             BlowUp();
         }
     }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
 }

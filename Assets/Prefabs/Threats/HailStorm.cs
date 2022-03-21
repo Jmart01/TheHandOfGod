@@ -73,4 +73,9 @@ public class HailStorm : Threat, IDragable
         yield return new WaitForSeconds(0.5f);
         Destroy(effect);
     }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
 }

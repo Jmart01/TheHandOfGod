@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 3016245121796754829}
   - component: {fileID: 3630714956720889744}
   - component: {fileID: 6250802782951354990}
-  m_Layer: 8
+  - component: {fileID: -1409474965614290261}
+  m_Layer: 9
   m_Name: MeteoritePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5baebc5b2ed29a41bf37547bffa5203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 25
-  maxSpeed: 75
+  minSpeed: 20
+  maxSpeed: 30
   minRotSpeed: 25
   maxRotSpeed: 50
   explosionEffect: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
@@ -132,3 +133,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.6075925
   m_Center: {x: 0.09, y: 0.26, z: 0}
+--- !u!114 &-1409474965614290261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033502712693810133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17c573a308ae994f9f862605519318f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 7df7121f8f7229d46a2328f0b0b3cdfc, type: 3}
