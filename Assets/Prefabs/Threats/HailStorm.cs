@@ -26,7 +26,7 @@ public class HailStorm : Threat, IDragable
 
     public void Released(Vector3 ThrowVelocity)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("releasing cloud");
     }
 
     private void OnTriggerEnter(Collider other)
