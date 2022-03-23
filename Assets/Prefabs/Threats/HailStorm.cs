@@ -6,15 +6,19 @@ public class HailStorm : Threat, IDragable
 {
     [SerializeField] GameObject explosionEffect;
     Coroutine damageOvertimeCoroutine;
+    OrbitMovementComp orbitMovementComp;
+    Rigidbody _rb;
     public void Grabbed(GameObject grabber, Vector3 grabPoint)
     {
-        //_rigidbody.isKinematic = true;
-        Debug.Log("grabbed");
+        orbitMovementComp.enabled = false;
+        transform.parent = grabber.transform;
+        transform.position = grabPoint;
     }
 
     public override void Init(ThreatSpawner spawner)
     {
-        OrbitMovementComp orbitMovementComp = GetComponent<OrbitMovementComp>();
+        orbitMovementComp = GetComponent<OrbitMovementComp>();
+        _rb = GetComponent<Rigidbody>();
         Transform walkmanTrans = GameplayStatic.GetWalkmanTransform();
         Vector3 spawnRotUp = new Vector3(Random.Range(0, 360), 0, 0);
         Vector3 spawnRotForward = transform.forward * Random.Range(0, 50);
@@ -26,7 +30,7 @@ public class HailStorm : Threat, IDragable
 
     public void Released(Vector3 ThrowVelocity)
     {
-        Debug.Log("releasing cloud");
+        orbitMovementComp.enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)
