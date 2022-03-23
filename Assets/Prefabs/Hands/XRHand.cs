@@ -47,7 +47,7 @@ public class XRHand : MonoBehaviour, IXRControllerInterface
     public void UpdateGripAnimation(float input)
     {
         XRHandAnimator.SetFloat("Grip", _gripInput);
-        if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
+        /*if (laserPointer != null && laserPointer.GetFocusedObject(out GameObject objectInFocus, out Vector3 ContactPoint))
         {
             IDragable objectAsDragable = objectInFocus.GetComponent<IDragable>();
             if (objectAsDragable == null)
@@ -60,7 +60,7 @@ public class XRHand : MonoBehaviour, IXRControllerInterface
                 objectAsDragable.Grabbed(GrabbingPoint, ContactPoint);
                 objectInHand = objectAsDragable;
             }
-        }
+        }*/
     }
 
     internal void StickUpdated(Vector2 stickInput)

@@ -59,9 +59,9 @@ public class HealthComp : MonoBehaviour
         int result = otherLayerAsBinary & LayerMaskData;
         if(result != 0)
         {
-            Debug.Log("Can damage");
-            //ChangeHealth(-1);
-            //other.GetComponent<Car>().ExplodeOnWalkman();
+            Debug.Log("Can damage due to car");
+            ChangeHealth(-1);
+            other.GetComponent<Car>().ExplodeOnWalkman();
         }
     }
 

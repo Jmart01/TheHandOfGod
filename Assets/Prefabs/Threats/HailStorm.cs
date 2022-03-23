@@ -5,12 +5,14 @@ using UnityEngine;
 public class HailStorm : Threat, IDragable
 {
     [SerializeField] GameObject explosionEffect;
+    [SerializeField] Transform explosionTrans;
     Coroutine damageOvertimeCoroutine;
     OrbitMovementComp orbitMovementComp;
-    Rigidbody _rb;
+    //Rigidbody _rb;
     public void Grabbed(GameObject grabber, Vector3 grabPoint)
     {
         orbitMovementComp.enabled = false;
+        //_rb.isKinematic = true;
         transform.parent = grabber.transform;
         transform.position = grabPoint;
     }
@@ -18,7 +20,7 @@ public class HailStorm : Threat, IDragable
     public override void Init(ThreatSpawner spawner)
     {
         orbitMovementComp = GetComponent<OrbitMovementComp>();
-        _rb = GetComponent<Rigidbody>();
+        //_rb = GetComponent<Rigidbody>();
         Transform walkmanTrans = GameplayStatic.GetWalkmanTransform();
         Vector3 spawnRotUp = new Vector3(Random.Range(0, 360), 0, 0);
         Vector3 spawnRotForward = transform.forward * Random.Range(0, 50);
@@ -31,6 +33,8 @@ public class HailStorm : Threat, IDragable
     public void Released(Vector3 ThrowVelocity)
     {
         orbitMovementComp.enabled = true;
+        transform.parent = null;
+        //_rb.isKinematic = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,8 +57,7 @@ public class HailStorm : Threat, IDragable
     {
         while(other.GetComponent<HealthComp>().GetHitpoints() > 0)
         {
-            Debug.Log("doing damage");
-            //other.GetComponent<HealthComp>().ChangeHealth(damageToDo * Time.deltaTime);
+            other.GetComponent<HealthComp>().ChangeHealth(damageToDo * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
         yield return null;
@@ -62,12 +65,15 @@ public class HailStorm : Threat, IDragable
 
     private void OnCollisionEnter(Collision collision)
     {
-        BlowUp();
+        if(collision.gameObject.GetComponent<Threat>())
+        {
+            BlowUp();
+        }
     }
 
     private void BlowUp()
     {
-        GameObject clonedEffect = Instantiate(explosionEffect, transform.position, transform.rotation);
+        GameObject clonedEffect = Instantiate(explosionEffect, explosionTrans.position, transform.rotation);
         StartCoroutine(DestroyEffectAndGameObject(clonedEffect));
     }
 

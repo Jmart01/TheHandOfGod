@@ -27,7 +27,6 @@ public class InGameUI : MonoBehaviour
         {
             ProgressBar.material.SetFloat("_Progress", percent);
         }
-        Debug.Log("Put in progress bar");
     }
 
     // Update is called once per frame
