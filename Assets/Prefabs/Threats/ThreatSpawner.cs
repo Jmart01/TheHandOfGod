@@ -13,6 +13,11 @@ public class ThreatSpawner : MonoBehaviour
         return MeteoriteSpawner;
     }
 
+    public float SetMaxSpawnInterval()
+    {
+        return MaxSpawnInterval = Mathf.Clamp(MaxSpawnInterval, MinSpawnInterval, MaxSpawnInterval - 1);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

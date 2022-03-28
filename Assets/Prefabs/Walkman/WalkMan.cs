@@ -6,6 +6,7 @@ using UnityEngine;
 public class WalkMan : MonoBehaviour
 {
     HealthComp healthComp;
+    [SerializeField] LayerMask ThreatMask;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,4 +37,23 @@ public class WalkMan : MonoBehaviour
             otherAsCar.ExplodeOnWalkman();
         }
     }*/
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"collided with {other.gameObject.name}");
+        //the layer is at what digit from 0-32
+        int otherLayer = other.gameObject.layer;
+
+        //already the binary number
+        int LayerMaskData = ThreatMask.value;
+        //converts otherLayer to binary
+        int otherLayerAsBinary = 1 << otherLayer;
+        int result = otherLayerAsBinary & LayerMaskData;
+        if (result != 0)
+        {
+            Debug.Log("Can damage due to car");
+            healthComp.ChangeHealth(-1);
+            other.GetComponentInParent<Car>().ExplodeOnWalkman();
+        }
+    }
 }

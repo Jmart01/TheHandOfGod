@@ -9,7 +9,7 @@ public class HealthComp : MonoBehaviour
 {
     [SerializeField] float HitPoints = 10;
     [SerializeField] float MaxHitPoints = 10;
-    [SerializeField] LayerMask ThreatMask;
+    
 
 
     public OnHealthChanged onHealthChanged;
@@ -46,24 +46,7 @@ public class HealthComp : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log($"collided with {other.gameObject.name}");
-        //the layer is at what digit from 0-32
-        int otherLayer = other.gameObject.layer;
-
-        //already the binary number
-        int LayerMaskData = ThreatMask.value;
-        //converts otherLayer to binary
-        int otherLayerAsBinary = 1 << otherLayer;
-        int result = otherLayerAsBinary & LayerMaskData;
-        if(result != 0)
-        {
-            Debug.Log("Can damage due to car");
-            ChangeHealth(-1);
-            other.GetComponent<Car>().ExplodeOnWalkman();
-        }
-    }
+    
 
 
     IEnumerator RegenHealth()
