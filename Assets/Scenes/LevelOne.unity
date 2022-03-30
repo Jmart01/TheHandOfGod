@@ -4374,8 +4374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de5fa1269334fab4ba0ccb1016c8fdf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitPoints: 10
-  MaxHitPoints: 10
+  HitPoints: 5
+  MaxHitPoints: 5
 --- !u!65 &1018971171
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4810,7 +4810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4407688587664296980, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_PresetInfoIsWorld
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4888118851311516165, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_Name
@@ -4884,11 +4884,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_Pivot.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_Pivot.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_RootOrder
@@ -4896,43 +4896,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1101
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 518
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 550.5
       objectReference: {fileID: 0}
     - target: {fileID: 6423307763510007333, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 259
       objectReference: {fileID: 0}
     - target: {fileID: 6874818726410536503, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4972,7 +4972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7703281505918001796, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_RenderMode
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7703281505918001796, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -9047,6 +9047,18 @@ PrefabInstance:
       propertyPath: MeteoriteSpawner
       value: 
       objectReference: {fileID: 1000090189}
+    - target: {fileID: -4095308180072058908, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
+      propertyPath: Threats.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4095308180072058908, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
+      propertyPath: Threats.Array.data[1].weight
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -4095308180072058908, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
+      propertyPath: Threats.Array.data[2].weight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4095308180072058908, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
       propertyPath: Threats.Array.data[0].maxCount
       value: 20
