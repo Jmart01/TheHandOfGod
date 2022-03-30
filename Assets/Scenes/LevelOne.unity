@@ -4751,7 +4751,7 @@ PrefabInstance:
     - target: {fileID: 1922124740349424403, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: threatSpawner
       value: 
-      objectReference: {fileID: 1809003199}
+      objectReference: {fileID: 0}
     - target: {fileID: 2453495935456198133, guid: 8154d62156a84114c97bc774f5e77244, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -8264,17 +8264,6 @@ Transform:
   m_Father: {fileID: 647236691}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 37.444, y: -135.85, z: -103.465}
---- !u!114 &1809003199 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 71538674463987113, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
-  m_PrefabInstance: {fileID: 1843978011655830758}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe2924b86751a84ea57b32ce923840f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1835395361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9054,26 +9043,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 71538674463987113, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
+    - target: {fileID: -4095308180072058908, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
       propertyPath: MeteoriteSpawner
       value: 
       objectReference: {fileID: 1000090189}
-    - target: {fileID: 71538674463987113, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
-      propertyPath: Threats.Array.size
-      value: 3
+    - target: {fileID: -4095308180072058908, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
+      propertyPath: Threats.Array.data[0].maxCount
+      value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 71538674463987113, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
-      propertyPath: Threats.Array.data[0]
-      value: 
-      objectReference: {fileID: 2784560280826339401, guid: 2bd02bdfdaaef0342831c157c3f973ee, type: 3}
-    - target: {fileID: 71538674463987113, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
-      propertyPath: Threats.Array.data[1]
-      value: 
-      objectReference: {fileID: 3016245121796754829, guid: 3068e5ed825ad8a4a9655185c814996b, type: 3}
-    - target: {fileID: 71538674463987113, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
-      propertyPath: Threats.Array.data[2]
-      value: 
-      objectReference: {fileID: -6313879188765437801, guid: b7f1f6fdce743e84a9d6885e99a11785, type: 3}
+    - target: {fileID: -4095308180072058908, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
+      propertyPath: Threats.Array.data[1].maxCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -4095308180072058908, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
+      propertyPath: Threats.Array.data[2].maxCount
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2475999512572044433, guid: 54daec5ef39cec14faef120953fb4aab, type: 3}
       propertyPath: m_Name
       value: ThreatSpawner

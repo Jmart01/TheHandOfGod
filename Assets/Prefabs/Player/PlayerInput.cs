@@ -71,6 +71,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveObject"",
+                    ""type"": ""Value"",
+                    ""id"": ""589c407f-7bd6-49c7-888c-6475cc1033cb"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -126,6 +135,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TriggerPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90ad6fad-edc6-4bc5-8dca-4d1311faafa5"",
+                    ""path"": ""<XRController>{RightHand}/thumbstick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveObject"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -269,6 +289,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_XRRightController_TriggerAxis = m_XRRightController.FindAction("TriggerAxis", throwIfNotFound: true);
         m_XRRightController_GripAxis = m_XRRightController.FindAction("GripAxis", throwIfNotFound: true);
         m_XRRightController_TriggerPress = m_XRRightController.FindAction("TriggerPress", throwIfNotFound: true);
+        m_XRRightController_MoveObject = m_XRRightController.FindAction("MoveObject", throwIfNotFound: true);
         // XRLeftController
         m_XRLeftController = asset.FindActionMap("XRLeftController", throwIfNotFound: true);
         m_XRLeftController_Stick = m_XRLeftController.FindAction("Stick", throwIfNotFound: true);
@@ -341,6 +362,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_XRRightController_TriggerAxis;
     private readonly InputAction m_XRRightController_GripAxis;
     private readonly InputAction m_XRRightController_TriggerPress;
+    private readonly InputAction m_XRRightController_MoveObject;
     public struct XRRightControllerActions
     {
         private @PlayerInput m_Wrapper;
@@ -350,6 +372,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @TriggerAxis => m_Wrapper.m_XRRightController_TriggerAxis;
         public InputAction @GripAxis => m_Wrapper.m_XRRightController_GripAxis;
         public InputAction @TriggerPress => m_Wrapper.m_XRRightController_TriggerPress;
+        public InputAction @MoveObject => m_Wrapper.m_XRRightController_MoveObject;
         public InputActionMap Get() { return m_Wrapper.m_XRRightController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -374,6 +397,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @TriggerPress.started -= m_Wrapper.m_XRRightControllerActionsCallbackInterface.OnTriggerPress;
                 @TriggerPress.performed -= m_Wrapper.m_XRRightControllerActionsCallbackInterface.OnTriggerPress;
                 @TriggerPress.canceled -= m_Wrapper.m_XRRightControllerActionsCallbackInterface.OnTriggerPress;
+                @MoveObject.started -= m_Wrapper.m_XRRightControllerActionsCallbackInterface.OnMoveObject;
+                @MoveObject.performed -= m_Wrapper.m_XRRightControllerActionsCallbackInterface.OnMoveObject;
+                @MoveObject.canceled -= m_Wrapper.m_XRRightControllerActionsCallbackInterface.OnMoveObject;
             }
             m_Wrapper.m_XRRightControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -393,6 +419,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @TriggerPress.started += instance.OnTriggerPress;
                 @TriggerPress.performed += instance.OnTriggerPress;
                 @TriggerPress.canceled += instance.OnTriggerPress;
+                @MoveObject.started += instance.OnMoveObject;
+                @MoveObject.performed += instance.OnMoveObject;
+                @MoveObject.canceled += instance.OnMoveObject;
             }
         }
     }
@@ -477,6 +506,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnTriggerAxis(InputAction.CallbackContext context);
         void OnGripAxis(InputAction.CallbackContext context);
         void OnTriggerPress(InputAction.CallbackContext context);
+        void OnMoveObject(InputAction.CallbackContext context);
     }
     public interface IXRLeftControllerActions
     {
